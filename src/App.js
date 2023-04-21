@@ -1,51 +1,40 @@
-import React, { useState } from "react";
-import Home from "./Home.js"
-import Health from "./Health.js"
-import Work from "./Work.js"
-import Settings from "./Settings.js"
+import './App.css';
+import React, { useState } from 'react';
+import Home from "./components/Home.js";
+import Health from "./components/Health.js";
+import Work from "./components/Work.js";
+import Settings from "./components/Settings.js";
+
 
 function App() {
-  const [activeTab, setActiveTab] = useState(0);
-
-  const handleTabClick = (index) => {
-    setActiveTab(index);
+  const [activeTab, setActiveTab] = useState("home");
+  
+  const handleTabClick = (tab) => {
+    setActiveTab(tab);
   };
-
-  const tabs = [
-    {
-      label: <div className="divBtn">Home</div>,
-      content: <Home />,
-    },
-    {
-      label: <div className="divBtn">Health</div>,
-      content: <Health />,
-    },
-    {
-      label: <div className="divBtn">Work</div>,
-      content: <Work />,
-    },
-    {
-      label: <div className="divBtn">Settings</div>,
-      content: <Settings />
-    },
-  ];
-
+  
   return (
-    <div>
-      <div className="tab-list">
-        {tabs.map((tab, index) => (
-          <div
-            key={index}
-            className={`tab-list-item ${
-              activeTab === index ? "tab-list-active" : ""
-            }`}
-            onClick={() => handleTabClick(index)}
-          >
-            {tab.label}
-          </div>
-        ))}
+    <div className='App'>
+      <div className='navigation'>
+        <a className={activeTab === "home" ? "active" : ""} onClick={() => handleTabClick("home")}><ion-icon name="person"></ion-icon></a>
+        <a className={activeTab === "health" ? "active" : ""} onClick={() => handleTabClick("health")}><ion-icon name="fitness"></ion-icon></a>
+        <a className={activeTab === "work" ? "active" : ""} onClick={() => handleTabClick("work")}><ion-icon name="cafe"></ion-icon></a>
+        <a className={activeTab === "settings" ? "active" : ""} onClick={() => handleTabClick("settings")}><ion-icon name="settings"></ion-icon></a>
       </div>
-      <div className="tab-content">{tabs[activeTab].content}</div>
+      <div className='content'>
+        <div className={activeTab === "home" ? "active" : ""}>
+          <Home />
+        </div>
+        <div className={activeTab === "health" ? "active" : ""}>
+            <Health />
+        </div>
+        <div className={activeTab === "work" ? "active" : ""}>
+            <Work />
+        </div>
+        <div className={activeTab === "settings" ? "active" : ""}>
+            <Settings />
+        </div>
+      </div>
     </div>
   );
 }
